@@ -1,0 +1,25 @@
+[
+/*create user*/
+{
+    "username":"mateus2",
+    "email": "mateustarouco@gmail.com",
+    "password": "Qwer56ui",
+    "faceId": 199798558,
+    "bithday": "1997-03-07",
+    "first_name": "Mateus",
+    "last_name": "Tarouco"
+},
+/*login user*/
+{
+    "username": "mateus",
+    "password": "Qwer56ui"
+},
+/*delete user*/
+{
+    "emploerNo": 1
+},
+/*get auth user*/
+{
+    "emploerNo":8
+}
+]
