@@ -18,7 +18,7 @@ python manage.py runserver
 <p>
 
 #### 
-#### url: /auth/newuser/
+#### 
 ~~~
 url: /login/
 ~~~
