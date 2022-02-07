@@ -1,12 +1,16 @@
 import json
 from rest_framework.views import Response 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view 
 from autentications.models import PersonalUser as User
-from django.contrib.auth import authenticate, logout 
+from django.contrib.auth import authenticate
+from rest_framework.permissions import  IsAuthenticated
+
 
 
 @api_view(['POST','GET']) 
 def CreateNewUser(request):
+    permission_classes = [IsAuthenticated]
+
     if request.method =='GET':
         return Response('')
     else:
@@ -33,6 +37,8 @@ def CreateNewUser(request):
 
 @api_view(['POST','GET'])
 def ChangePassword(request):
+    permission_classes = [IsAuthenticated]
+
     if request.method == 'GET':
         return Response('')
     else:
@@ -51,49 +57,17 @@ def ChangePassword(request):
 
 @api_view(['POST','GET'])
 def DeleteUser(request):
+    permission_classes = [IsAuthenticated]
+
     if request.method == 'GET':
         return Response('')
     else:
-        emploerNo = request.data.get('emploerNo')
+        id = request.data.get('id')
 
-        u = User.objects.get(emploerNo=emploerNo)
+        u = User.objects.get(id=id)
         u.delete()
 
         if u:
             return Response('usuario Deleteado sucesso')
         else:
             return Response('falha ao deletar usuario')
-
-
-@api_view(['POST'])
-def AuthUser(request , format=json):
-    username = request.data.get('username')
-    password = request.data.get('password')
-    
-    u = authenticate(username=username, password=password)
-    
-    queryset = User.objects.filter(username=username).values()
-    str(queryset)
-    if u:
-        return Response(queryset)
-    else:
-        return Response('não autenticado')
-
-
-@api_view(['POST'])
-def  LogOut(request):
-    emploerNo = request.data.get('emploerNo')
-    u = User
-    logout(u)
-
-@api_view(['GET'])
-def GetAuthUser(request):
-    us = authenticate(username='mateus', password="Qwer56ui")
-    current_user = us.is_authenticated
-    print(current_user)
-    u =True
-    #u = u.is_authenticated
-    if u:
-        return Response('whatever')
-    else:
-        return Response('not')
